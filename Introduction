@@ -1,0 +1,40 @@
+Building biologically-realistic models of neurons requires knowing values for many different parameters. 
+When those are not known or hard to measure experimentally, we can use an optimisation library such as [BluePyOpt](https://github.com/BlueBrain/BluePyOpt) to constrain them with experimental data.
+
+## Load and visualise some electrophysiological data
+To model the electrical behaviour of neurons we can use electrophysiological data, recorded during a in vitro [patch clamp experiment](https://en.wikipedia.org/wiki/Patch_clamp). In these types of experiments we inject a current in the neuron and record the voltage response of its membrane.
+We are now going to visualise the response of a neuron to a depolarising (positive) current injection and to a hyperpolarising (negative) current.
+
+  ------------------------------------------------------------------------------------------------------------------------------
+
+# Download some experimental data and save to file
+import numpy
+from urllib.request import urlopen
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+fig, ax = plt.subplots(2, sharey = True)
+
+for i, filename in enumerate({'dep_trace.txt', 'hyp_trace.txt'}):
+    response = urlopen('https://bbpteam.epfl.ch/public/mooc-hbp/{}'.format(filename))
+    data = response.read()
+    with open(filename, "wb") as f:
+        f.write(data)
+        
+    trace = numpy.loadtxt(filename)    
+    ax[i].plot(trace[:,0], trace[:,1], color = 'k')
+    ax[i].set_ylabel('Voltage (mV)')
+    ax[i].set_xlabel('Time (ms)')    
+    
+------------------------------------------------------------------------------------------------------------------------------
+    
+    We can also create two variables pointing to the experimental recordings for later use. 
+    As you can see, each trace is a 2D-array, with the first column representing the time points and the second column the voltage.
+    
+------------------------------------------------------------------------------------------------------------------------------
+
+exp_pos_trace = numpy.loadtxt("dep_trace.txt")
+exp_neg_trace = numpy.loadtxt("hyp_trace.txt")
+print(exp_pos_trace)
+
+------------------------------------------------------------------------------------------------------------------------------
