@@ -1,3 +1,5 @@
+https://bbp-noto-lti.epfl.ch/user/ad5b4425a9aea2693a425266d6afa3a0/lab/tree/MOOC-the-multiscale-brain/CellTypes_modelling/CellTypes_modelling.ipynb
+
 Building biologically-realistic models of neurons requires knowing values for many different parameters. 
 When those are not known or hard to measure experimentally, we can use an optimisation library such as [BluePyOpt](https://github.com/BlueBrain/BluePyOpt) to constrain them with experimental data.
 
